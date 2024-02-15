@@ -3,8 +3,12 @@
 #include "job.h"
 
 
-Job::Job(int id, bool is_bg, std::string cmd, int pid) : id(id), state((is_bg)? State.BG : State.FG), process(process), pid(pid), time_stamp(time(NULL)) {}
+Job::Job(int id, std::string cmd, int pid) : id(id), cmd(cmd), pid(pid),  is_stopped(false), time_stamp(time(NULL)) {}
 
-Job::~Job() { std::cout << "Job with ID " << id << " is destroyed." << std::endl; }
+Job::~Job() {}
 
-Job::set_time_stamp() { this.time_stamp = time(NULL); }
+void Job::set_time_stamp() { this->time_stamp = time(NULL); }
+
+int Job::get_elapsed_time(time_t time_now) {
+    return (int)difftime(time_now, this->time_stamp);
+}
