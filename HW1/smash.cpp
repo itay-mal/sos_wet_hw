@@ -16,30 +16,21 @@ main file. This file contains the main function of smash
 
 // char* L_Fg_Cmd;
 Jobs jobs;//This represents the list of jobs. Please change to a preferred type (e.g array of char*)
-Job *fg_job = NULL;
+Job *fg_job = nullptr;
 char lineSize[MAX_LINE_SIZE]; 
 //**************************************************************************************
 // function name: main
 // Description: main function of smash. get command from user and calls command functions
 //**************************************************************************************
+
+
 int main(int argc, char *argv[])
 {
     char cmdString[MAX_LINE_SIZE];
 
-	
-	//signal declaretions
-	//NOTE: the signal handlers and the function/s that sets the handler should be found in siganls.c
-	 /* add your code here */
-	
-	/************************************/
-	//NOTE: the signal handlers and the function/s that sets the handler should be found in siganls.c
-	//set your signal handlers here
-	/* add your code here */
-
-	/************************************/
 	struct sigaction ctrlc_act;
 	ctrlc_act.sa_handler = &handler_cntlc;
-	sigfillset(&ctrlc_act.sa_mask);
+	sigfillset(&(ctrlc_act.sa_mask));
 	sigaction(SIGINT, &ctrlc_act, NULL);
 
 	struct sigaction ctrlz_act;
@@ -52,32 +43,17 @@ int main(int argc, char *argv[])
 	sigfillset(&sigchld_act.sa_mask);
 	sigaction(SIGCHLD, &sigchld_act, NULL);
 
-	/************************************/
-	// Init globals 
+	while (1)
+	{
+		printf("smash > ");
+		fgets(lineSize, MAX_LINE_SIZE, stdin);
+		strcpy(cmdString, lineSize);
+		cmdString[strlen(lineSize)-1]='\0'; // replaces \n with \0
+		ExeCmd(lineSize, cmdString);
 
-
-	
-	// L_Fg_Cmd =(char*)malloc(sizeof(char)*(MAX_LINE_SIZE+1));
-	// if (L_Fg_Cmd == NULL) 
-	// 		exit (-1); 
-	// L_Fg_Cmd[0] = '\0';
-	
-    	while (1)
-    	{
-			while(fg_job){}; // busy wait for fg job to be over
-			printf("smash > ");
-			fgets(lineSize, MAX_LINE_SIZE, stdin);
-			strcpy(cmdString, lineSize);
-			cmdString[strlen(lineSize)-1]='\0'; // replaces \n with \0
-						// background command
-	 		if(!BgCmd(lineSize)) continue;
-						// built in commands
-			ExeCmd(lineSize, cmdString);
-
-			/* initialize for next line read*/
-			lineSize[0]='\0';
-			cmdString[0]='\0';
+		/* initialize for next line read*/
+		lineSize[0]='\0';
+		cmdString[0]='\0';
 	}
-    return 0;
+	return 0;
 }
-

@@ -28,7 +28,7 @@ Job* Jobs::get_job_by_job_id(int job_id) {
             return &job;
         }
     }
-    return NULL;
+    throw std::runtime_error("Job with given PID not found");
 }
 
 // Get a job by its PID
@@ -58,7 +58,7 @@ void Jobs::remove_job_by_pid(int pid) {
     std::cout << "removing job with pid " << pid << std::endl;
     for (auto it = this->jobs_list.begin(); it != this->jobs_list.end(); ++it) {
         if (it->pid == pid) {
-            it = this->jobs_list.erase(it);
+            this->jobs_list.erase(it);
             return;
         }
     }
