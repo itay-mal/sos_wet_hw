@@ -34,7 +34,7 @@ int ExeCmd(char* lineSize, char* cmdString)
 	if (!strcmp(cmd, "cd") ) 
 	{
 		if(num_arg != 1){
-			std::cout << "smash error: diff: invalid arguments" << std::endl; 
+			std::cout << "smash error: cd: too many arguments" << std::endl; 
 			return 1;
 		}
 		// calculate where to jump .. / - / path
