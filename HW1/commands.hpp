@@ -11,7 +11,7 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <algorithm>
-#include "job.h"
+#include "job.hpp"
 #define MAX_LINE_SIZE 80
 #define MAX_ARG 20
 

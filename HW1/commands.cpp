@@ -1,6 +1,6 @@
 //		commands.c
 //********************************************
-#include "commands.h"
+#include "commands.hpp"
 //********************************************
 // function name: ExeCmd
 // Description: interperts and executes built-in commands

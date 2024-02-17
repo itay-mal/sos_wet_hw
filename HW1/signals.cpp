@@ -2,7 +2,7 @@
 // contains signal handler funtions
 // contains the function/s that set the signal handlers
 
-#include "signals.h"
+#include "signals.hpp"
 #include <time.h>
 
 

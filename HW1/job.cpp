@@ -1,4 +1,4 @@
-#include "job.h"
+#include "job.hpp"
 
 
 Job::Job(int id, std::string cmd, int pid) : id(id), cmd(cmd), pid(pid),  is_stopped(false), time_stamp(time(NULL)) {}
