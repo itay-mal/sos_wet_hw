@@ -1,7 +1,6 @@
 //		commands.c
 //********************************************
 #include "commands.h"
-extern Job *fg_job;
 //********************************************
 // function name: ExeCmd
 // Description: interperts and executes built-in commands
@@ -72,14 +71,7 @@ int ExeCmd(char* lineSize, char* cmdString)
 	/*************************************************/
 	else if (!strcmp(cmd, "jobs")) 
 	{	
-		std::sort(jobs.begin(), jobs.end(), [](const Job& a, const Job& b) {
-			return a.id < b.id;
-		});
-
-		time_t time_now = time(NULL);
-		for(Jobs_t::iterator j = jobs.begin();j != jobs.end(); j++){
-			std::cout << "[" << j->id << "] " << j->cmd << " : " << j->pid << " " << j->get_elapsed_time(time_now) << " secs" << ((j->is_stopped) ? " (stopped)": "") << std::endl;
-		}
+		jobs.print_jobs();
 	}
 
 	/*************************************************/
@@ -91,17 +83,25 @@ int ExeCmd(char* lineSize, char* cmdString)
 	else if (!strcmp(cmd, "fg"))
 	{
 		// find job in jobs where job.id == arg[1]
-		Jobs_t::iterator j = jobs.begin();
-		for(;j != jobs.end(); j++){
-			if(j->id == atoi(args[1])) break;
+		Job* to_fg = NULL;
+		if(num_arg == 0 && jobs.jobs_list.empty()){
+			std::cout << "jobs list is empty" << std::endl;
 		}
-		if(j == jobs.end()){
-			// didn't find job with id...
-			return 1;
+		if(num_arg == 1){
+			try {
+				Job* to_fg = jobs.get_job_by_job_id(atoi(args[1]));
+			}
+			catch(){
+				
+			}
 		}
-		fg_job = &(*j);
-		std::cout << "ma shetzarich" << std::endl;
-		jobs.erase(j); // remove from jobs
+		if(to_fg == NULL){
+			int max_job_id = jobs.get_next_job_id() - 1;
+			to_fg = jobs.get_job_by_job_id(max_job_id);
+			kill(SIGCONT, to_fg->pid);
+			jobs.remove_job_by_pid(to_fg->pid);
+		}
+		fg_job = to_fg;
 	}
 	/*************************************************/
 	else if (!strcmp(cmd, "bg")) 
@@ -181,10 +181,8 @@ void ExeExternal(char *args[MAX_ARG-1], char* cmdString)
 			}
 			default:
 			{
-					Job *new_job = new Job(15, cmdString, getpid());
-					std::cout << "starting push" << std::endl;
-					jobs.push_back(*new_job);
-					std::cout << "finished push" << std::endl;
+					Job *new_job = new Job(jobs.get_next_job_id(), cmdString, pID);
+					jobs.jobs_list.push_back(*new_job);
                 	break;
 					// Add your code here
 					/* 

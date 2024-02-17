@@ -15,7 +15,7 @@ main file. This file contains the main function of smash
 #define MAXARGS 20
 
 // char* L_Fg_Cmd;
-Jobs_t jobs;//This represents the list of jobs. Please change to a preferred type (e.g array of char*)
+Jobs jobs;//This represents the list of jobs. Please change to a preferred type (e.g array of char*)
 Job *fg_job = NULL;
 char lineSize[MAX_LINE_SIZE]; 
 //**************************************************************************************
@@ -24,7 +24,7 @@ char lineSize[MAX_LINE_SIZE];
 //**************************************************************************************
 int main(int argc, char *argv[])
 {
-    char cmdString[MAX_LINE_SIZE]; 	   
+    char cmdString[MAX_LINE_SIZE];
 
 	
 	//signal declaretions
@@ -37,6 +37,20 @@ int main(int argc, char *argv[])
 	/* add your code here */
 
 	/************************************/
+	struct sigaction ctrlc_act;
+	ctrlc_act.sa_handler = &handler_cntlc;
+	sigfillset(&ctrlc_act.sa_mask);
+	sigaction(SIGINT, &ctrlc_act, NULL);
+
+	struct sigaction ctrlz_act;
+	ctrlz_act.sa_handler = &handler_cntlz;
+	sigfillset(&ctrlz_act.sa_mask);
+	sigaction(SIGTSTP, &ctrlz_act, NULL);
+
+	struct sigaction sigchld_act;
+	sigchld_act.sa_handler = &handler_sigchld;
+	sigfillset(&sigchld_act.sa_mask);
+	sigaction(SIGCHLD, &sigchld_act, NULL);
 
 	/************************************/
 	// Init globals 

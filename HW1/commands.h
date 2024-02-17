@@ -14,7 +14,8 @@
 #include "job.h"
 #define MAX_LINE_SIZE 80
 #define MAX_ARG 20
-extern Jobs_t jobs;
+extern Jobs jobs;
+extern Job *fg_job;
 int BgCmd(char* lineSize);
 int ExeCmd(char* lineSize, char* cmdString);
 void ExeExternal(char *args[MAX_ARG], char* cmdString);
