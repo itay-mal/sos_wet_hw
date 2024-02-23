@@ -156,9 +156,61 @@ int ExeCmd(char* lineSize, char* cmdString)
 	}
 	/*************************************************/
 	else if (!strcmp(cmd, "quit"))
-	{
-		exit(0);
-	} 
+	{	
+		// if(!strcmp(args[1],"kill")){ // > quit kill
+		// 	for(auto& j : jobs.jobs_list){
+		// 		std::cout << "[" << j.id << "] " << j.cmd << " - Sending SIGTERM... " << std::endl;
+		// 		kill(j.pid, SIGTERM)
+		// 		sleep(5);
+		// 		pid_t result = waitpid(pid, &status, WNOHANG);
+       	// 		if (result == 0) { // Not died
+		// 			std::cout << "(5 sec passed) Sending SIGKILL… Done." << std::endl;
+		// 			kill(j.pid, SIGKILL);
+		// 		}
+		// 		else{ // Died from SIGTERM
+		// 			std::cout << "Done." << std::endl;
+		// 		}
+		// 	}
+		// }
+	// } 
+
+		if((num_arg == 1) && !strcmp(args[1],"kill")){ // > quit kill
+			while(!jobs.jobs_list.empty()){
+				Job* j = &(*jobs.jobs_list.begin());
+				std::cout << "[" << j->id << "] " << j->cmd << " - Sending SIGTERM... ";
+				kill(j->pid, SIGTERM);
+				sleep(5);
+				int status;
+				pid_t result = waitpid(j->pid, &status, WNOHANG);
+				if (result == 0) { // Not died
+					std::cout << "(5 sec passed) Sending SIGKILL… Done." << std::endl;
+					kill(j->pid, SIGKILL);
+				}
+				else{ // Died from SIGTERM
+					std::cout << "Done." << std::endl;
+				}
+			}
+		}
+	    // for (auto& j : jobs.jobs_list) {
+        // std::cout << "[" << j.id << "] " << j.cmd << " - Sending SIGTERM... ";
+        // kill(j.pid, SIGTERM);
+
+        // struct pollfd pfd;
+        // pfd.fd = -1; 
+        // pfd.events = POLLIN; 
+        // poll(&pfd, 1, 5000); 
+
+        // if (pfd.revents & POLLIN) {
+        //     std::cout << "Done." << std::endl;
+        // } else {
+        //     std::cout << "(5 sec passed) Sending SIGKILL... ";
+        //     kill(j.pid, SIGKILL);
+        //     std::cout << "Done." << std::endl;
+        // }
+    // }
+	}
+
+
 	/*************************************************/
 	else if (!strcmp(cmd, "kill"))
 	{
