@@ -21,6 +21,7 @@ class Job {
     ~Job();
     void set_time_stamp();
     int get_elapsed_time(const time_t time_now);
+    void print_job();
 
 };
 

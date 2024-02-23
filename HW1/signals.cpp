@@ -16,8 +16,8 @@ void handler_cntlc(int signum) {
       std::cout << "process " << fg_job->pid << " was killed" << std::endl;
       kill(fg_job->pid, SIGKILL);
       int status;
-      sleep(10);
       waitpid(fg_job->pid, &status, 0);
+      delete fg_job;
       fg_job = nullptr;
    }
    std::cout << "exiting ctrl-C handler" << std::endl;
@@ -37,8 +37,10 @@ void handler_cntlz(int signum) {
       fg_job->is_stopped = true;
       fg_job->time_stamp = time(NULL);
       jobs.put_job(fg_job);
+      delete fg_job;
       fg_job = nullptr;
    }
+   std::cout << "exiting ctrl-z handler" << std::endl;
    return;
 }
 
@@ -47,7 +49,7 @@ void handler_cntlz(int signum) {
    Synopsis: handle SIGCHLD e.g. by child process finished */
 /******************************************/
 void handler_sigchld(int signum) {
-    std::cout << "Received SIGCHLD" << std::endl;
+   //  std::cout << "Received SIGCHLD" << std::endl;
 
     // Iterate through the list of jobs
     while(true){
@@ -59,7 +61,7 @@ void handler_sigchld(int signum) {
             return;
         } else if (result > 0) {
             // Child process terminated
-            std::cout << "Child process with PID " << result << " terminated" << std::endl;
+            // std::cout << "Child process with PID " << result << " terminated" << std::endl;
             // Optionally, perform any additional actions (e.g., cleanup)
             // Remove the terminated job from the vector
             if(fg_job != nullptr && result == fg_job->pid){

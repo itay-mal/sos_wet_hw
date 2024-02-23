@@ -11,6 +11,9 @@ int Job::get_elapsed_time(const time_t time_now) {
     return static_cast<int>(difftime(time_now, this->time_stamp));
 }
 
+void Job::print_job() {
+    std::cout << this->id << " " << this->pid << " " << this->cmd << std::endl;
+}
 
 Jobs::Jobs(): jobs_list() {}
 
@@ -18,7 +21,8 @@ Jobs::~Jobs() {}
 
 // Add a job to the jobs_list
 void Jobs::put_job(Job *job) {
-    this->jobs_list.push_back(*job);
+    Job newjob = *job;
+    this->jobs_list.push_back(newjob);
 }
 
 // Get a job by its JOB_ID
@@ -55,7 +59,7 @@ void Jobs::print_jobs() {
 
 // Remove a job by its PID
 void Jobs::remove_job_by_pid(int pid) {
-    std::cout << "removing job with pid " << pid << std::endl;
+    // std::cout << "removing job with pid " << pid << std::endl;
     for (auto it = this->jobs_list.begin(); it != this->jobs_list.end(); ++it) {
         if (it->pid == pid) {
             this->jobs_list.erase(it);

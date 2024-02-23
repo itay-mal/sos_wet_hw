@@ -82,7 +82,6 @@ int ExeCmd(char* lineSize, char* cmdString)
 	/*************************************************/
 	else if (!strcmp(cmd, "fg"))
 	{
-		// find job in jobs where job.id == arg[1]
 		Job* to_fg = NULL;
 		if(num_arg == 0){ // > fg
 			if(jobs.jobs_list.empty()){
@@ -91,7 +90,6 @@ int ExeCmd(char* lineSize, char* cmdString)
 			} else {
 				int max_job_id = jobs.get_next_job_id() - 1;
 				to_fg = jobs.get_job_by_job_id(max_job_id);
-				
 			} 
 		}else if(num_arg == 1){ // > fg 13
 			try {
@@ -107,11 +105,11 @@ int ExeCmd(char* lineSize, char* cmdString)
 		}
 		kill(to_fg->pid, SIGCONT);
 		to_fg->is_stopped = false;
+		fg_job = new Job(*to_fg);
 		jobs.remove_job_by_pid(to_fg->pid);
 		int status;
-		fg_job = to_fg;
-		waitpid(to_fg->pid, &status, 0);
-		
+		pid_t fg_pid = fg_job->pid;
+		waitpid(fg_pid, &status, 0);
 	}
 	/*************************************************/
 	else if (!strcmp(cmd, "bg")) 
@@ -157,57 +155,27 @@ int ExeCmd(char* lineSize, char* cmdString)
 	/*************************************************/
 	else if (!strcmp(cmd, "quit"))
 	{	
-		// if(!strcmp(args[1],"kill")){ // > quit kill
-		// 	for(auto& j : jobs.jobs_list){
-		// 		std::cout << "[" << j.id << "] " << j.cmd << " - Sending SIGTERM... " << std::endl;
-		// 		kill(j.pid, SIGTERM)
-		// 		sleep(5);
-		// 		pid_t result = waitpid(pid, &status, WNOHANG);
-       	// 		if (result == 0) { // Not died
-		// 			std::cout << "(5 sec passed) Sending SIGKILL… Done." << std::endl;
-		// 			kill(j.pid, SIGKILL);
-		// 		}
-		// 		else{ // Died from SIGTERM
-		// 			std::cout << "Done." << std::endl;
-		// 		}
-		// 	}
-		// }
-	// } 
-
 		if((num_arg == 1) && !strcmp(args[1],"kill")){ // > quit kill
 			while(!jobs.jobs_list.empty()){
-				Job* j = &(*jobs.jobs_list.begin());
-				std::cout << "[" << j->id << "] " << j->cmd << " - Sending SIGTERM... ";
-				kill(j->pid, SIGTERM);
-				sleep(5);
-				int status;
-				pid_t result = waitpid(j->pid, &status, WNOHANG);
-				if (result == 0) { // Not died
-					std::cout << "(5 sec passed) Sending SIGKILL… Done." << std::endl;
-					kill(j->pid, SIGKILL);
+				pid_t job_to_kill = jobs.jobs_list[0].pid;
+				std::cout << "[" << jobs.jobs_list[0].id << "] " << jobs.jobs_list[0].cmd << " - Sending SIGTERM... " << std::flush;
+				kill(job_to_kill, SIGTERM);
+				std::this_thread::sleep_for(std::chrono::seconds(5));
+				try{
+					jobs.get_job_by_pid(job_to_kill);
+					std::cout << "(5 sec passed) Sending SIGKILL... ";
+					kill(job_to_kill, SIGKILL);
+					std::this_thread::sleep_for(std::chrono::seconds(10));
+					kill(getpid(), SIGCHLD); // force invoke handler 
+					// waitpid(job_to_kill, NULL, WNOHANG); // just in case it is not released already
 				}
-				else{ // Died from SIGTERM
-					std::cout << "Done." << std::endl;
+				catch(std::runtime_error){
+					std::cout << "job with pid " << job_to_kill << "not in list" << std::endl;
 				}
+				std::cout << "Done." << std::endl;
 			}
 		}
-	    // for (auto& j : jobs.jobs_list) {
-        // std::cout << "[" << j.id << "] " << j.cmd << " - Sending SIGTERM... ";
-        // kill(j.pid, SIGTERM);
-
-        // struct pollfd pfd;
-        // pfd.fd = -1; 
-        // pfd.events = POLLIN; 
-        // poll(&pfd, 1, 5000); 
-
-        // if (pfd.revents & POLLIN) {
-        //     std::cout << "Done." << std::endl;
-        // } else {
-        //     std::cout << "(5 sec passed) Sending SIGKILL... ";
-        //     kill(j.pid, SIGKILL);
-        //     std::cout << "Done." << std::endl;
-        // }
-    // }
+		exit(0);
 	}
 
 
@@ -297,7 +265,7 @@ void ExeExternal(char *args[MAX_ARG-1], char* cmdString, bool is_bg)
 			{
 					Job *new_job = new Job(jobs.get_next_job_id(), cmdString, pID);
 					if (is_bg){ // bg job
-						jobs.jobs_list.push_back(*new_job);
+						delete new_job;
 						break;
 					} else { // fg
 						fg_job = new_job;
