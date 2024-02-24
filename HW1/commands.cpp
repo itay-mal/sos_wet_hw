@@ -130,12 +130,11 @@ int ExeCmd(char* lineSize, char* cmdString)
 			jobs.remove_job_by_pid(to_fg->pid);
 			pid_t fg_pid = fg_job->pid;
 			int status;
-			do{
+			while(fg_job != nullptr){
 				if(waitpid(fg_pid, &status, 0) == -1 && errno != EINTR){
-					perror("smash error: waitpid failed");
+					perror("smash error: waitp id failed");
 				}
-			} while(!WIFEXITED(status) && !WIFSTOPPED(status) && !WIFSIGNALED(status));
-			std::cout << "signaled " << WIFSIGNALED(status) << " by signal no " << WTERMSIG(status) << std::endl;
+			}
 		}
 	}
 	/*************************************************/

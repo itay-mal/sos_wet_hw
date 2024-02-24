@@ -53,8 +53,6 @@ void handler_cntlz(int signum) {
    Synopsis: handle SIGCHLD e.g. by child process finished */
 /******************************************/
 void handler_sigchld(int signum) {
-    std::cout << "Received SIGCHLD" << std::endl;
-
    // Iterate through the list of jobs
    while(true){
       int status;
@@ -64,7 +62,6 @@ void handler_sigchld(int signum) {
          break;
       } else if (result > 0) {
          // Child process terminated
-         std::cout << "Child proc " << result << "terminated" << std::endl;
          if(fg_job != nullptr && result == fg_job->pid){
             delete fg_job;
             fg_job = nullptr;
