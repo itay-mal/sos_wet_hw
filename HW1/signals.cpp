@@ -11,9 +11,9 @@
    Synopsis: handle the Control-C */
 /******************************************/
 void handler_cntlc(int signum) {
-   std::cout << "caught ctrl-C" << std::endl;
+   std::cout << "smash: caught ctrl-C" << std::endl;
    if(fg_job){
-      std::cout << "process " << fg_job->pid << " was killed" << std::endl;
+      std::cout << "smash: process " << fg_job->pid << " was killed" << std::endl;
       if(kill(fg_job->pid, SIGKILL) == -1){
          perror("smash error: kill failed");
       }
@@ -33,9 +33,9 @@ void handler_cntlc(int signum) {
    Synopsis: handle the Control-Z */
 /******************************************/
 void handler_cntlz(int signum) {
-   std::cout << "caught ctrl-Z" << std::endl;
+   std::cout << "smash: caught ctrl-Z" << std::endl;
    if(fg_job){
-      std::cout << "process " << fg_job->pid << " was stopped" << std::endl;
+      std::cout << "smash: process " << fg_job->pid << " was stopped" << std::endl;
       if(kill(fg_job->pid, SIGSTOP) == -1){
          perror("smash error: kill failed");         
       }
