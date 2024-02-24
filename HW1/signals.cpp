@@ -55,8 +55,9 @@ void handler_sigchld(int signum) {
    while(true){
       int status;
       pid_t result = waitpid(-1, &status, WNOHANG);
-      if (result == -1) {
+      if (result == -1 && errno != ECHILD) {
          // Error while waiting for the child process
+         std::cout << "error in waitpid()" << std::endl;
          // perror("waitpid");
          break;
       } else if (result > 0) {
