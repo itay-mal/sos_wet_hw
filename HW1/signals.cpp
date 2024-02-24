@@ -14,13 +14,16 @@ void handler_cntlc(int signum) {
    std::cout << "caught ctrl-C" << std::endl;
    if(fg_job){
       std::cout << "process " << fg_job->pid << " was killed" << std::endl;
-      kill(fg_job->pid, SIGKILL);
+      if(kill(fg_job->pid, SIGKILL) == -1){
+         perror("smash error: kill failed");
+      }
       int status;
-      waitpid(fg_job->pid, &status, 0);
+      if(waitpid(fg_job->pid, &status, 0) == -1){
+         perror("smash error: waitpid failed");         
+      }
       delete fg_job;
       fg_job = nullptr;
    }
-   std::cout << "exiting ctrl-C handler" << std::endl;
    return;
 }
 
@@ -33,14 +36,15 @@ void handler_cntlz(int signum) {
    std::cout << "caught ctrl-Z" << std::endl;
    if(fg_job){
       std::cout << "process " << fg_job->pid << " was stopped" << std::endl;
-      kill(fg_job->pid, SIGSTOP);
+      if(kill(fg_job->pid, SIGSTOP) == -1){
+         perror("smash error: kill failed");         
+      }
       fg_job->is_stopped = true;
       fg_job->time_stamp = time(NULL);
       jobs.put_job(fg_job);
       delete fg_job;
       fg_job = nullptr;
    }
-   std::cout << "exiting ctrl-z handler" << std::endl;
    return;
 }
 
@@ -49,19 +53,18 @@ void handler_cntlz(int signum) {
    Synopsis: handle SIGCHLD e.g. by child process finished */
 /******************************************/
 void handler_sigchld(int signum) {
-   //  std::cout << "Received SIGCHLD" << std::endl;
+    std::cout << "Received SIGCHLD" << std::endl;
 
    // Iterate through the list of jobs
    while(true){
       int status;
       pid_t result = waitpid(-1, &status, WNOHANG);
       if (result == -1 && errno != ECHILD) {
-         // Error while waiting for the child process
-         std::cout << "error in waitpid()" << std::endl;
-         // perror("waitpid");
+         perror("smash error: waitpid failed");
          break;
       } else if (result > 0) {
          // Child process terminated
+         std::cout << "Child proc " << result << "terminated" << std::endl;
          if(fg_job != nullptr && result == fg_job->pid){
             delete fg_job;
             fg_job = nullptr;

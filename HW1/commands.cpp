@@ -47,26 +47,45 @@ int ExeCmd(char* lineSize, char* cmdString)
 			path_to_jump = old_pwd;
 		}
 		else if(!strcmp(args[1], "..")){
-			std::string cwd(getcwd(NULL, 0));
-			std::size_t found = cwd.find_last_of("/");
-  			path_to_jump = cwd.substr(0,found);
-			if(path_to_jump.empty()){
-				path_to_jump = "/";
+			char *cwd_ = getcwd(NULL, 0);
+			if(cwd_ == NULL) {
+				perror("smash error: getcwd failed");
+			} else{
+				std::string cwd(cwd_);
+				std::size_t found = cwd.find_last_of("/");
+				path_to_jump = cwd.substr(0,found);
+				if(path_to_jump.empty()){
+					path_to_jump = "/";
+			}
 			}
 		}
 		else{
 			path_to_jump = args[1];
 		}		
 		//save pwd as old_pwd
-		old_pwd = getcwd(NULL, 0);
-		// jump
-		chdir(path_to_jump.c_str());
+		char *cwd_ = getcwd(NULL, 0);
+		if(cwd_ == NULL) {
+			perror("smash error: getcwd failed");
+		} else{
+			std::string cwd(cwd_);
+			// jump
+			if (chdir(path_to_jump.c_str()) == -1){
+				perror("smash error: chdir failed");
+			} else {  // chdir succeed
+				old_pwd = cwd; 
+			}
+		}
 		return 0;
 	} 
 	/*************************************************/
 	else if (!strcmp(cmd, "pwd")) 
 	{
-		std::cout << getcwd(NULL, 0) << std::endl;
+		char *cwd = getcwd(NULL, 0);
+		if(cwd == NULL){
+			perror("smash error: getcwd failed");
+		} else {
+			std::cout << cwd << std::endl;
+		}
 	}
 	/*************************************************/
 	else if (!strcmp(cmd, "jobs")) 
@@ -91,7 +110,7 @@ int ExeCmd(char* lineSize, char* cmdString)
 				int max_job_id = jobs.get_next_job_id() - 1;
 				to_fg = jobs.get_job_by_job_id(max_job_id);
 			} 
-		}else if(num_arg == 1){ // > fg 13
+		} else if(num_arg == 1){ // > fg 13
 			try {
 				to_fg = jobs.get_job_by_job_id(atoi(args[1]));
 			}
@@ -103,13 +122,21 @@ int ExeCmd(char* lineSize, char* cmdString)
 			std::cerr << "smash error: fg: invalid arguments" << std::endl;
 			return 1;
 		}
-		kill(to_fg->pid, SIGCONT);
-		to_fg->is_stopped = false;
-		fg_job = new Job(*to_fg);
-		jobs.remove_job_by_pid(to_fg->pid);
-		int status;
-		pid_t fg_pid = fg_job->pid;
-		waitpid(fg_pid, &status, 0);
+		if(kill(to_fg->pid, SIGCONT) == -1){
+			perror("smash error: kill failed");
+		} else {
+			to_fg->is_stopped = false;
+			fg_job = new Job(*to_fg);
+			jobs.remove_job_by_pid(to_fg->pid);
+			pid_t fg_pid = fg_job->pid;
+			int status;
+			do{
+				if(waitpid(fg_pid, &status, 0) == -1 && errno != EINTR){
+					perror("smash error: waitpid failed");
+				}
+			} while(!WIFEXITED(status) && !WIFSTOPPED(status) && !WIFSIGNALED(status));
+			std::cout << "signaled " << WIFSIGNALED(status) << " by signal no " << WTERMSIG(status) << std::endl;
+		}
 	}
 	/*************************************************/
 	else if (!strcmp(cmd, "bg")) 
@@ -149,7 +176,9 @@ int ExeCmd(char* lineSize, char* cmdString)
 		}
 		to_bg->is_stopped = false;
 		std::cout << to_bg->cmd << " : " << to_bg->pid << std::endl;
-		kill(to_bg->pid, SIGCONT);
+		if(kill(to_bg->pid, SIGCONT) == -1){
+			perror("smash error: kill failed");
+		}
 		return 0;
 	}
 	/*************************************************/
@@ -159,15 +188,17 @@ int ExeCmd(char* lineSize, char* cmdString)
 			while(!jobs.jobs_list.empty()){
 				pid_t job_to_kill = jobs.jobs_list[0].pid;
 				std::cout << "[" << jobs.jobs_list[0].id << "] " << jobs.jobs_list[0].cmd << " - Sending SIGTERM... " << std::flush;
-				kill(job_to_kill, SIGTERM);
+				if(kill(job_to_kill, SIGTERM) == -1) {
+					perror("smash error: kill failed");
+				}
 				std::this_thread::sleep_for(std::chrono::seconds(5));
 				try{
 					jobs.get_job_by_pid(job_to_kill);
 					std::cout << "(5 sec passed) Sending SIGKILL... ";
-					kill(job_to_kill, SIGKILL);
+					if(kill(job_to_kill, SIGKILL) == -1){
+						perror("smash error: kill failed");
+					}
 					std::this_thread::sleep_for(std::chrono::seconds(10));
-					kill(getpid(), SIGCHLD); // force invoke handler 
-					// waitpid(job_to_kill, NULL, WNOHANG); // just in case it is not released already
 				}
 				catch(std::runtime_error){
 					// std::cout << "job with pid " << job_to_kill << "not in list" << std::endl;
@@ -194,7 +225,9 @@ int ExeCmd(char* lineSize, char* cmdString)
 			std::cerr << "smash error: kill: job-id " << args[2] << " does not exist" << std::endl;
 			return 1;
 		}
-		kill(job->pid, abs(atoi(args[1])));
+		if(kill(job->pid, abs(atoi(args[1]))) == -1){
+			perror("smash error: kill failed");
+		}
 		std::cout << "signal number " << args[1] << " was sent to pid " << job->pid << std::endl;
 	} 
 	/*************************************************/	
@@ -202,7 +235,7 @@ int ExeCmd(char* lineSize, char* cmdString)
 	{
    		if(num_arg != 2){ 
 			std::cerr << "smash error: diff: invalid arguments" << std::endl; return 1;
-			}
+		}
 		
 
 		std::ifstream f1(args[1]), f2(args[2]);
@@ -248,31 +281,32 @@ int ExeCmd(char* lineSize, char* cmdString)
 void ExeExternal(char *args[MAX_ARG-1], char* cmdString, bool is_bg)
 {
 	int pID;
-    	switch(pID = fork())
-	{
-    		case -1: 
-					perror("smash error: fork failed");
+    	switch(pID = fork()) {
+		case -1: 
+				perror("smash error: fork failed");
+				break;
+		case 0 :
+		{
+				// Child Process
+				setpgrp();
+				execv(args[0], args);
+				exit(0);
+				break;
+		}
+		default:
+		{
+				Job *new_job = new Job(jobs.get_next_job_id(), cmdString, pID);
+				if (is_bg){ // bg job
+					jobs.put_job(new_job);
+					delete new_job;
 					break;
-        	case 0 :
-			{
-                	// Child Process
-               		setpgrp();
-					execv(args[0], args);
-			        exit(0);
-					break;
-			}
-			default:
-			{
-					Job *new_job = new Job(jobs.get_next_job_id(), cmdString, pID);
-					if (is_bg){ // bg job
-						jobs.put_job(new_job);
-						delete new_job;
-						break;
-					} else { // fg
-						fg_job = new_job;
-						int status;
-						waitpid(pID, &status, 0);
+				} else { // fg
+					fg_job = new_job;
+					int status;
+					if(waitpid(pID, &status, 0) == -1 && errno != EINTR){
+						perror("smash error: waitpid failed");
 					}
-			}
+				}
+		}
 	}
 }
