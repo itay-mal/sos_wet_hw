@@ -53,6 +53,7 @@ void handler_cntlz(int signum) {
    Synopsis: handle SIGCHLD e.g. by child process finished */
 /******************************************/
 void handler_sigchld(int signum) {
+   // std::cout << "cought sigchld" << std::endl;
    // Iterate through the list of jobs
    while(true){
       int status;

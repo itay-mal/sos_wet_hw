@@ -127,12 +127,16 @@ int ExeCmd(char* lineSize, char* cmdString)
 		} else {
 			to_fg->is_stopped = false;
 			fg_job = new Job(*to_fg);
+			std::cout << to_fg->cmd << " : " << to_fg->pid << std::endl;
 			jobs.remove_job_by_pid(to_fg->pid);
 			pid_t fg_pid = fg_job->pid;
 			int status;
 			while(fg_job != nullptr){
 				if(waitpid(fg_pid, &status, 0) == -1 && errno != EINTR){
-					perror("smash error: waitp id failed");
+					if(errno == ECHILD){
+						break;
+					}
+					perror("smash error: waitpid failed");
 				}
 			}
 		}
@@ -302,9 +306,14 @@ void ExeExternal(char *args[MAX_ARG-1], char* cmdString, bool is_bg)
 				} else { // fg
 					fg_job = new_job;
 					int status;
-					if(waitpid(pID, &status, 0) == -1 && errno != EINTR){
-						perror("smash error: waitpid failed");
-					}
+					do {
+						if(waitpid(pID, &status, 0) == -1 && errno != EINTR){
+							if(errno == ECHILD){
+								break;
+							} 
+							perror("smash error: waitpid failed");
+						}
+					} while(fg_job);
 				}
 		}
 	}

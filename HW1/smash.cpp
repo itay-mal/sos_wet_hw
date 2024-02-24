@@ -57,7 +57,7 @@ int main(int argc, char *argv[])
 
 	while (1)
 	{
-		printf("smash > ");
+		std::cout << "smash > " << std::flush;
 		fgets(lineSize, MAX_LINE_SIZE, stdin);
 		strcpy(cmdString, lineSize);
 		cmdString[strlen(lineSize)-1]='\0'; // replaces \n with \0
