@@ -30,16 +30,22 @@ int main(int argc, char *argv[])
 
 	struct sigaction ctrlc_act;
 	ctrlc_act.sa_handler = &handler_cntlc;
+	ctrlc_act.sa_flags = 0;
+	ctrlc_act.sa_restorer = NULL;
 	sigfillset(&(ctrlc_act.sa_mask));
 	sigaction(SIGINT, &ctrlc_act, NULL);
 
 	struct sigaction ctrlz_act;
 	ctrlz_act.sa_handler = &handler_cntlz;
+	ctrlz_act.sa_flags = 0;
+	ctrlz_act.sa_restorer = NULL;
 	sigfillset(&ctrlz_act.sa_mask);
 	sigaction(SIGTSTP, &ctrlz_act, NULL);
 
 	struct sigaction sigchld_act;
 	sigchld_act.sa_handler = &handler_sigchld;
+	sigchld_act.sa_flags = 0;
+	sigchld_act.sa_restorer = NULL;
 	sigfillset(&sigchld_act.sa_mask);
 	sigaction(SIGCHLD, &sigchld_act, NULL);
 

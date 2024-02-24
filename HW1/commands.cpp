@@ -170,7 +170,7 @@ int ExeCmd(char* lineSize, char* cmdString)
 					// waitpid(job_to_kill, NULL, WNOHANG); // just in case it is not released already
 				}
 				catch(std::runtime_error){
-					std::cout << "job with pid " << job_to_kill << "not in list" << std::endl;
+					// std::cout << "job with pid " << job_to_kill << "not in list" << std::endl;
 				}
 				std::cout << "Done." << std::endl;
 			}
@@ -265,6 +265,7 @@ void ExeExternal(char *args[MAX_ARG-1], char* cmdString, bool is_bg)
 			{
 					Job *new_job = new Job(jobs.get_next_job_id(), cmdString, pID);
 					if (is_bg){ // bg job
+						jobs.put_job(new_job);
 						delete new_job;
 						break;
 					} else { // fg

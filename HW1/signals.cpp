@@ -51,28 +51,27 @@ void handler_cntlz(int signum) {
 void handler_sigchld(int signum) {
    //  std::cout << "Received SIGCHLD" << std::endl;
 
-    // Iterate through the list of jobs
-    while(true){
-        int status;
-        pid_t result = waitpid(-1, &status, WNOHANG);
-        if (result == -1) {
-            // Error while waiting for the child process
-            // perror("waitpid");
-            return;
-        } else if (result > 0) {
-            // Child process terminated
-            // std::cout << "Child process with PID " << result << " terminated" << std::endl;
-            // Optionally, perform any additional actions (e.g., cleanup)
+   // Iterate through the list of jobs
+   while(true){
+      int status;
+      pid_t result = waitpid(-1, &status, WNOHANG);
+      if (result == -1) {
+         // Error while waiting for the child process
+         // perror("waitpid");
+         break;
+      } else if (result > 0) {
+         // Child process terminated
+         if(fg_job != nullptr && result == fg_job->pid){
+            delete fg_job;
+            fg_job = nullptr;
+         } else {
             // Remove the terminated job from the vector
-            if(fg_job != nullptr && result == fg_job->pid){
-               delete fg_job;
-               fg_job = nullptr;
-            } else {
-               jobs.remove_job_by_pid(result);
-            }
-        } else {
-            // no Child process ended
-            return;
-        }
-    }
+            jobs.remove_job_by_pid(result);
+         }
+      } else {
+         // no Child process ended
+         break;
+      }
+   }
+   return;
 }
