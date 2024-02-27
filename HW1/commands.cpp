@@ -56,10 +56,9 @@ int ExeCmd(char* lineSize, char* cmdString)
 				path_to_jump = cwd.substr(0,found);
 				if(path_to_jump.empty()){
 					path_to_jump = "/";
+				}
 			}
-			}
-		}
-		else{
+		} else{
 			path_to_jump = args[1];
 		}		
 		//save pwd as old_pwd
