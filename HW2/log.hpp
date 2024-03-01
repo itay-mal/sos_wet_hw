@@ -7,7 +7,7 @@
 #include <sstream>
 #include <type_traits>
 
-void print_to_log(std::string message);
+void print_to_log(const std::stringstream &message);
 
 void close_log();
 

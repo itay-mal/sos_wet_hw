@@ -34,5 +34,9 @@ int main(int argc, char *argv[]) {
 	//wait();
 	for(auto atm_p:atms){ delete atm_p; }
 	atms.clear();
+	bank.print_all_balances();
+	for(int i =0; i<10 ; i++){
+		bank.get_commision();
+	}
 	return 0;
 }

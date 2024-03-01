@@ -33,23 +33,24 @@ void Atm::run() {
         }
         switch (param[0][0])
         {
-        case 'O':
-            this->open_account(stoi(param[1]), stoi(param[2]), stoi(param[3]));
+            // change all methods to bank methods
+        case 'O':   
+            bank.open_account(stoi(param[1]), stoi(param[2]), stoi(param[3]), this->identifier);
             break; 
         case 'D':
-            this->deposit_cash(stoi(param[1]), stoi(param[2]), stoi(param[3]));
+            bank.deposit_withdraw(stoi(param[1]), stoi(param[2]), stoi(param[3]), this->identifier);
             break;
         case 'W':
-            this->withdraw_cash(stoi(param[1]), stoi(param[2]), stoi(param[3]));
+            bank.deposit_withdraw(stoi(param[1]), stoi(param[2]), -stoi(param[3]), this->identifier);
             break;
         case 'B':
-            this->check_balance(stoi(param[1]), stoi(param[2]));
+            bank.check_balance(stoi(param[1]), stoi(param[2]), this->identifier);
             break;
         case 'Q':
-            this->close_account(stoi(param[1]), stoi(param[2]));
+            bank.remove_account(stoi(param[1]), stoi(param[2]),this->identifier);
             break;
         case 'T':
-            this->transfer_between_accounts(stoi(param[1]), stoi(param[2]), stoi(param[3]), stoi(param[4]));
+            bank.transfer_between_accounts(stoi(param[1]),stoi(param[2]),stoi(param[3]),stoi(param[4]), this->identifier);
             break;
 
         default:
@@ -57,43 +58,3 @@ void Atm::run() {
         }
     }
 }
-
-
-void Atm::open_account(int id, int password, int initial_amount) {
-    // Implement open_account logic here
-    std::string msg("Error");
-    msg += std::to_string(this->identifier);
-    msg += "Your transaction failed : account with the same id exists";
-    print_to_log(msg);
-
-    if(bank.is_account_exist(id)) {
-        // print_to_log(msg);
-    }
-}
-
-void Atm::close_account(int id, int password) {
-    // Implement close_account logic here
-    print_to_log("Closing account..."); 
-}
-
-void Atm::withdraw_cash(int id, int password, int amount) {
-    // Implement withdraw_cash logic here
-    print_to_log("Withdrawing cash...");
-}
-
-void Atm::deposit_cash(int id, int password, int amount) {
-    // Implement deposit_cash logic here
-    print_to_log("Depositing cash...");
-}
-
-void Atm::check_balance(int id, int password) {
-    // Implement check_balance logic here
-    print_to_log("Checking balance...");
-}
-
-void Atm::transfer_between_accounts(int source_account, int password, int target_account, int amount) {
-    // Implement transfer_between_accounts logic here
-    print_to_log("Transferring between accounts...");
-}
-
-

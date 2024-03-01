@@ -1,0 +1,14 @@
+1: New account id is 111 with password 1234 and initial balance 50
+1: New account id is 222 with password 568 and initial balance 20
+1: Account 111 new balance is 150 after 100 $ was deposited
+1: Account 222 new balance is 10 after 10 $ was withdrew
+Error 1: Your transaction failed - password for account id 222 is incorrect
+Error 1: Your transaction failed - account id 111 balance is lower than 2000
+1: Account 111 balance is 150
+1: Transfer 70 from account 111 to account 222 new account balance is 80 new target account balance is 80
+Error 1: Your transaction failed - account id 223 does not exists
+Error 1: Your transaction failed - account id 111 balance is lower than 70205
+Error 1: Your transaction failed - password for account id 111 is incorrect
+Error 1: Your transaction failed - password for account id 222 is incorrect
+Error 1: Your transaction failed - account id 333 does not exists
+1: Account 222 balance is 80
