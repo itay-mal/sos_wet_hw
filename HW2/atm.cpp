@@ -25,6 +25,7 @@ Atm::~Atm() {
 void Atm::run() {
     std::string line;
     while(std::getline(actions_file, line)) {
+        sleep(0.1);
         std::vector<std::string> param;
         std::string s;
         std::stringstream ss(line);

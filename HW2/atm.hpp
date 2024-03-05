@@ -11,6 +11,7 @@
 #include <string>
 #include <vector>
 #include <typeinfo>
+#include <unistd.h>
 
 extern Bank bank;
 

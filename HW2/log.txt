@@ -1,14 +1,405 @@
 1: New account id is 111 with password 1234 and initial balance 50
+Error 2: Your transaction failed - account with the same id exists
+Error 3: Your transaction failed - account with the same id exists
+Error 5: Your transaction failed - account with the same id exists
+Error 6: Your transaction failed - account with the same id exists
+Error 7: Your transaction failed - account with the same id exists
+Error 4: Your transaction failed - account with the same id exists
+Error 8: Your transaction failed - account with the same id exists
+Error 9: Your transaction failed - account with the same id exists
+Error 10: Your transaction failed - account with the same id exists
+Error 11: Your transaction failed - account with the same id exists
+Error 12: Your transaction failed - account with the same id exists
+Error 13: Your transaction failed - account with the same id exists
+Error 14: Your transaction failed - account with the same id exists
+Error 15: Your transaction failed - account with the same id exists
+Error 16: Your transaction failed - account with the same id exists
+Error 17: Your transaction failed - account with the same id exists
+Error 18: Your transaction failed - account with the same id exists
+Error 19: Your transaction failed - account with the same id exists
+Error 20: Your transaction failed - account with the same id exists
+Error 21: Your transaction failed - account with the same id exists
+Error 22: Your transaction failed - account with the same id exists
+Error 23: Your transaction failed - account with the same id exists
+Error 24: Your transaction failed - account with the same id exists
+Error 25: Your transaction failed - account with the same id exists
+Error 26: Your transaction failed - account with the same id exists
+Error 27: Your transaction failed - account with the same id exists
+Bank: commissions of 4 % were charged, the bank gained 2 $ from account 111
 1: New account id is 222 with password 568 and initial balance 20
-1: Account 111 new balance is 150 after 100 $ was deposited
-1: Account 222 new balance is 10 after 10 $ was withdrew
+Error 3: Your transaction failed - account with the same id exists
+Error 2: Your transaction failed - account with the same id exists
+Error 5: Your transaction failed - account with the same id exists
+Error 6: Your transaction failed - account with the same id exists
+Error 4: Your transaction failed - account with the same id exists
+Error 7: Your transaction failed - account with the same id exists
+Error 8: Your transaction failed - account with the same id exists
+Error 9: Your transaction failed - account with the same id exists
+Error 12: Your transaction failed - account with the same id exists
+Error 10: Your transaction failed - account with the same id exists
+Error 11: Your transaction failed - account with the same id exists
+Error 14: Your transaction failed - account with the same id exists
+Error 15: Your transaction failed - account with the same id exists
+Error 13: Your transaction failed - account with the same id exists
+Error 16: Your transaction failed - account with the same id exists
+Error 17: Your transaction failed - account with the same id exists
+Error 21: Your transaction failed - account with the same id exists
+Error 19: Your transaction failed - account with the same id exists
+Error 20: Your transaction failed - account with the same id exists
+Error 18: Your transaction failed - account with the same id exists
+Error 24: Your transaction failed - account with the same id exists
+Error 23: Your transaction failed - account with the same id exists
+Error 22: Your transaction failed - account with the same id exists
+Error 25: Your transaction failed - account with the same id exists
+Error 26: Your transaction failed - account with the same id exists
+Error 27: Your transaction failed - account with the same id exists
+Bank: commissions of 4 % were charged, the bank gained 2 $ from account 111
+Bank: commissions of 4 % were charged, the bank gained 1 $ from account 222
+1: Account 111 new balance is 146 after 100 $ was deposited
+3: Account 111 new balance is 246 after 100 $ was deposited
+2: Account 111 new balance is 346 after 100 $ was deposited
+5: Account 111 new balance is 446 after 100 $ was deposited
+6: Account 111 new balance is 546 after 100 $ was deposited
+4: Account 111 new balance is 646 after 100 $ was deposited
+9: Account 111 new balance is 746 after 100 $ was deposited
+8: Account 111 new balance is 846 after 100 $ was deposited
+7: Account 111 new balance is 946 after 100 $ was deposited
+12: Account 111 new balance is 1046 after 100 $ was deposited
+11: Account 111 new balance is 1246 after 100 $ was deposited
+10: Account 111 new balance is 1146 after 100 $ was deposited
+15: Account 111 new balance is 1346 after 100 $ was deposited
+13: Account 111 new balance is 1446 after 100 $ was deposited
+14: Account 111 new balance is 1546 after 100 $ was deposited
+16: Account 111 new balance is 1646 after 100 $ was deposited
+17: Account 111 new balance is 1746 after 100 $ was deposited
+21: Account 111 new balance is 1846 after 100 $ was deposited
+19: Account 111 new balance is 1946 after 100 $ was deposited
+18: Account 111 new balance is 2046 after 100 $ was deposited
+20: Account 111 new balance is 2146 after 100 $ was deposited
+23: Account 111 new balance is 2246 after 100 $ was deposited
+24: Account 111 new balance is 2346 after 100 $ was deposited
+22: Account 111 new balance is 2446 after 100 $ was deposited
+25: Account 111 new balance is 2546 after 100 $ was deposited
+26: Account 111 new balance is 2646 after 100 $ was deposited
+27: Account 111 new balance is 2746 after 100 $ was deposited
+Bank: commissions of 5 % were charged, the bank gained 137 $ from account 111
+Bank: commissions of 5 % were charged, the bank gained 1 $ from account 222
+1: Account 222 new balance is 8 after 10 $ was withdrew
+Bank: commissions of 1 % were charged, the bank gained 26 $ from account 111
+Bank: commissions of 1 % were charged, the bank gained 0 $ from account 222
+Error 3: Your transaction failed - account id 222 balance is lower than 10
+Error 2: Your transaction failed - account id 222 balance is lower than 10
+Error 5: Your transaction failed - account id 222 balance is lower than 10
+Error 6: Your transaction failed - account id 222 balance is lower than 10
+Error 4: Your transaction failed - account id 222 balance is lower than 10
+Error 9: Your transaction failed - account id 222 balance is lower than 10
+Error 8: Your transaction failed - account id 222 balance is lower than 10
+Error 10: Your transaction failed - account id 222 balance is lower than 10
+Error 7: Your transaction failed - account id 222 balance is lower than 10
+Error 13: Your transaction failed - account id 222 balance is lower than 10
+Error 15: Your transaction failed - account id 222 balance is lower than 10
+Error 12: Your transaction failed - account id 222 balance is lower than 10
+Error 14: Your transaction failed - account id 222 balance is lower than 10
+Error 11: Your transaction failed - account id 222 balance is lower than 10
+Error 16: Your transaction failed - account id 222 balance is lower than 10
+Error 17: Your transaction failed - account id 222 balance is lower than 10
+Error 19: Your transaction failed - account id 222 balance is lower than 10
+Error 21: Your transaction failed - account id 222 balance is lower than 10
+Error 23: Your transaction failed - account id 222 balance is lower than 10
+Error 18: Your transaction failed - account id 222 balance is lower than 10
+Error 20: Your transaction failed - account id 222 balance is lower than 10
+Error 22: Your transaction failed - account id 222 balance is lower than 10
+Error 24: Your transaction failed - account id 222 balance is lower than 10
+Error 25: Your transaction failed - account id 222 balance is lower than 10
+Error 26: Your transaction failed - account id 222 balance is lower than 10
+Error 27: Your transaction failed - account id 222 balance is lower than 10
+Bank: commissions of 2 % were charged, the bank gained 52 $ from account 111
+Bank: commissions of 2 % were charged, the bank gained 0 $ from account 222
 Error 1: Your transaction failed - password for account id 222 is incorrect
-Error 1: Your transaction failed - account id 111 balance is lower than 2000
-1: Account 111 balance is 150
-1: Transfer 70 from account 111 to account 222 new account balance is 80 new target account balance is 80
-Error 1: Your transaction failed - account id 223 does not exists
+Error 3: Your transaction failed - password for account id 222 is incorrect
+1: Account 111 new balance is 531 after 2000 $ was withdrew
+Error 2: Your transaction failed - password for account id 222 is incorrect
+Error 5: Your transaction failed - password for account id 222 is incorrect
+Error 6: Your transaction failed - password for account id 222 is incorrect
+Error 7: Your transaction failed - password for account id 222 is incorrect
+Error 4: Your transaction failed - password for account id 222 is incorrect
+Error 8: Your transaction failed - password for account id 222 is incorrect
+Error 10: Your transaction failed - password for account id 222 is incorrect
+Error 9: Your transaction failed - password for account id 222 is incorrect
+Error 14: Your transaction failed - password for account id 222 is incorrect
+Error 12: Your transaction failed - password for account id 222 is incorrect
+Error 13: Your transaction failed - password for account id 222 is incorrect
+Error 15: Your transaction failed - password for account id 222 is incorrect
+Error 11: Your transaction failed - password for account id 222 is incorrect
+Error 16: Your transaction failed - password for account id 222 is incorrect
+Error 17: Your transaction failed - password for account id 222 is incorrect
+Error 19: Your transaction failed - password for account id 222 is incorrect
+Error 23: Your transaction failed - password for account id 222 is incorrect
+Error 22: Your transaction failed - password for account id 222 is incorrect
+Error 21: Your transaction failed - password for account id 222 is incorrect
+Error 20: Your transaction failed - password for account id 222 is incorrect
+Error 18: Your transaction failed - password for account id 222 is incorrect
+Error 24: Your transaction failed - password for account id 222 is incorrect
+Error 25: Your transaction failed - password for account id 222 is incorrect
+Error 26: Your transaction failed - password for account id 222 is incorrect
+Error 27: Your transaction failed - password for account id 222 is incorrect
+Bank: commissions of 4 % were charged, the bank gained 21 $ from account 111
+Bank: commissions of 4 % were charged, the bank gained 0 $ from account 222
+Error 3: Your transaction failed - account id 111 balance is lower than 2000
+1: Account 111 balance is 510
+Error 2: Your transaction failed - account id 111 balance is lower than 2000
+3: Account 111 balance is 510
+2: Account 111 balance is 510
+Error 5: Your transaction failed - account id 111 balance is lower than 2000
+5: Account 111 balance is 510
+Error 6: Your transaction failed - account id 111 balance is lower than 2000
+6: Account 111 balance is 510
+Error 4: Your transaction failed - account id 111 balance is lower than 2000
+Error 7: Your transaction failed - account id 111 balance is lower than 2000
+Error 8: Your transaction failed - account id 111 balance is lower than 2000
+Error 10: Your transaction failed - account id 111 balance is lower than 2000
+Error 9: Your transaction failed - account id 111 balance is lower than 2000
+8: Account 111 balance is 510
+Error 14: Your transaction failed - account id 111 balance is lower than 2000
+9: Account 111 balance is 510
+Error 13: Your transaction failed - account id 111 balance is lower than 2000
+Error 12: Your transaction failed - account id 111 balance is lower than 2000
+Error 15: Your transaction failed - account id 111 balance is lower than 2000
+Error 17: Your transaction failed - account id 111 balance is lower than 2000
+Error 11: Your transaction failed - account id 111 balance is lower than 2000
+Error 16: Your transaction failed - account id 111 balance is lower than 2000
+4: Account 111 balance is 510
+11: Account 111 balance is 510
+16: Account 111 balance is 510
+7: Account 111 balance is 510
+10: Account 111 balance is 510
+14: Account 111 balance is 510
+Error 19: Your transaction failed - account id 111 balance is lower than 2000
+13: Account 111 balance is 510
+Error 23: Your transaction failed - account id 111 balance is lower than 2000
+Error 20: Your transaction failed - account id 111 balance is lower than 2000
+Error 22: Your transaction failed - account id 111 balance is lower than 2000
+Error 21: Your transaction failed - account id 111 balance is lower than 2000
+Error 18: Your transaction failed - account id 111 balance is lower than 2000
+Error 24: Your transaction failed - account id 111 balance is lower than 2000
+22: Account 111 balance is 510
+24: Account 111 balance is 510
+20: Account 111 balance is 510
+12: Account 111 balance is 510
+18: Account 111 balance is 510
+15: Account 111 balance is 510
+17: Account 111 balance is 510
+19: Account 111 balance is 510
+23: Account 111 balance is 510
+21: Account 111 balance is 510
+Error 26: Your transaction failed - account id 111 balance is lower than 2000
+Error 27: Your transaction failed - account id 111 balance is lower than 2000
+Error 25: Your transaction failed - account id 111 balance is lower than 2000
+Bank: commissions of 1 % were charged, the bank gained 5 $ from account 111
+26: Account 111 balance is 505
+27: Account 111 balance is 505
+25: Account 111 balance is 505
+Bank: commissions of 1 % were charged, the bank gained 0 $ from account 222
+1: Transfer 70 from account 111 to account 222 new account balance is 435 new target account balance is 78
+3: Transfer 70 from account 111 to account 222 new account balance is 365 new target account balance is 148
+2: Transfer 70 from account 111 to account 222 new account balance is 295 new target account balance is 218
+5: Transfer 70 from account 111 to account 222 new account balance is 225 new target account balance is 288
+6: Transfer 70 from account 111 to account 222 new account balance is 155 new target account balance is 358
+8: Transfer 70 from account 111 to account 222 new account balance is 85 new target account balance is 428
+9: Transfer 70 from account 111 to account 222 new account balance is 15 new target account balance is 498
+Error 16: Your transaction failed - account id 111 balance is lower than 70
+Error 4: Your transaction failed - account id 111 balance is lower than 70
+Error 7: Your transaction failed - account id 111 balance is lower than 70
+Error 10: Your transaction failed - account id 111 balance is lower than 70
+Error 13: Your transaction failed - account id 111 balance is lower than 70
+Error 11: Your transaction failed - account id 111 balance is lower than 70
+Error 14: Your transaction failed - account id 111 balance is lower than 70
+Error 22: Your transaction failed - account id 111 balance is lower than 70
+Error 24: Your transaction failed - account id 111 balance is lower than 70
+Error 20: Your transaction failed - account id 111 balance is lower than 70
+Error 18: Your transaction failed - account id 111 balance is lower than 70
+Error 12: Your transaction failed - account id 111 balance is lower than 70
+Error 15: Your transaction failed - account id 111 balance is lower than 70
+Error 17: Your transaction failed - account id 111 balance is lower than 70
+Error 19: Your transaction failed - account id 111 balance is lower than 70
+Error 23: Your transaction failed - account id 111 balance is lower than 70
+Error 21: Your transaction failed - account id 111 balance is lower than 70
+Error 26: Your transaction failed - account id 111 balance is lower than 70
+Error 27: Your transaction failed - account id 111 balance is lower than 70
+Error 25: Your transaction failed - account id 111 balance is lower than 70
+Bank: commissions of 5 % were charged, the bank gained 1 $ from account 111
+Bank: commissions of 5 % were charged, the bank gained 25 $ from account 222
+Error 1: Your transaction failed - account id 111 balance is lower than 70
+Error 3: Your transaction failed - account id 111 balance is lower than 70
+Error 2: Your transaction failed - account id 111 balance is lower than 70
+Error 5: Your transaction failed - account id 111 balance is lower than 70
+Error 6: Your transaction failed - account id 111 balance is lower than 70
+Error 8: Your transaction failed - account id 111 balance is lower than 70
+Error 9: Your transaction failed - account id 111 balance is lower than 70
+Error 16: Your transaction failed - account id 111 balance is lower than 70
+Error 4: Your transaction failed - account id 111 balance is lower than 70
+Error 7: Your transaction failed - account id 111 balance is lower than 70
+Error 14: Your transaction failed - account id 111 balance is lower than 70
+Error 10: Your transaction failed - account id 111 balance is lower than 70
+Error 11: Your transaction failed - account id 111 balance is lower than 70
+Error 13: Your transaction failed - account id 111 balance is lower than 70
+Error 22: Your transaction failed - account id 111 balance is lower than 70
+Error 24: Your transaction failed - account id 111 balance is lower than 70
+Error 20: Your transaction failed - account id 111 balance is lower than 70
+Error 18: Your transaction failed - account id 111 balance is lower than 70
+Error 12: Your transaction failed - account id 111 balance is lower than 70
+Error 15: Your transaction failed - account id 111 balance is lower than 70
+Error 17: Your transaction failed - account id 111 balance is lower than 70
+Error 19: Your transaction failed - account id 111 balance is lower than 70
+Error 23: Your transaction failed - account id 111 balance is lower than 70
+Error 21: Your transaction failed - account id 111 balance is lower than 70
+Error 26: Your transaction failed - account id 111 balance is lower than 70
+Error 27: Your transaction failed - account id 111 balance is lower than 70
+Error 25: Your transaction failed - account id 111 balance is lower than 70
+Bank: commissions of 3 % were charged, the bank gained 0 $ from account 111
+Bank: commissions of 3 % were charged, the bank gained 14 $ from account 222
 Error 1: Your transaction failed - account id 111 balance is lower than 70205
+Error 3: Your transaction failed - account id 111 balance is lower than 70205
+Error 2: Your transaction failed - account id 111 balance is lower than 70205
+Error 5: Your transaction failed - account id 111 balance is lower than 70205
+Error 6: Your transaction failed - account id 111 balance is lower than 70205
+Error 8: Your transaction failed - account id 111 balance is lower than 70205
+Error 9: Your transaction failed - account id 111 balance is lower than 70205
+Error 16: Your transaction failed - account id 111 balance is lower than 70205
+Error 7: Your transaction failed - account id 111 balance is lower than 70205
+Error 4: Your transaction failed - account id 111 balance is lower than 70205
+Error 14: Your transaction failed - account id 111 balance is lower than 70205
+Error 10: Your transaction failed - account id 111 balance is lower than 70205
+Error 11: Your transaction failed - account id 111 balance is lower than 70205
+Error 13: Your transaction failed - account id 111 balance is lower than 70205
+Error 22: Your transaction failed - account id 111 balance is lower than 70205
+Error 24: Your transaction failed - account id 111 balance is lower than 70205
+Error 20: Your transaction failed - account id 111 balance is lower than 70205
+Error 12: Your transaction failed - account id 111 balance is lower than 70205
+Error 15: Your transaction failed - account id 111 balance is lower than 70205
+Error 18: Your transaction failed - account id 111 balance is lower than 70205
+Error 17: Your transaction failed - account id 111 balance is lower than 70205
+Error 19: Your transaction failed - account id 111 balance is lower than 70205
+Error 23: Your transaction failed - account id 111 balance is lower than 70205
+Error 21: Your transaction failed - account id 111 balance is lower than 70205
+Error 26: Your transaction failed - account id 111 balance is lower than 70205
+Error 27: Your transaction failed - account id 111 balance is lower than 70205
+Error 25: Your transaction failed - account id 111 balance is lower than 70205
+Bank: commissions of 4 % were charged, the bank gained 1 $ from account 111
+Bank: commissions of 4 % were charged, the bank gained 18 $ from account 222
+Error 2: Your transaction failed - password for account id 111 is incorrect
+Error 3: Your transaction failed - password for account id 111 is incorrect
 Error 1: Your transaction failed - password for account id 111 is incorrect
+Error 5: Your transaction failed - password for account id 111 is incorrect
+Error 6: Your transaction failed - password for account id 111 is incorrect
+Error 8: Your transaction failed - password for account id 111 is incorrect
+Error 9: Your transaction failed - password for account id 111 is incorrect
+Error 16: Your transaction failed - password for account id 111 is incorrect
+Error 7: Your transaction failed - password for account id 111 is incorrect
+Error 10: Your transaction failed - password for account id 111 is incorrect
+Error 4: Your transaction failed - password for account id 111 is incorrect
+Error 11: Your transaction failed - password for account id 111 is incorrect
+Error 14: Your transaction failed - password for account id 111 is incorrect
+Error 22: Your transaction failed - password for account id 111 is incorrect
+Error 24: Your transaction failed - password for account id 111 is incorrect
+Error 13: Your transaction failed - password for account id 111 is incorrect
+Error 20: Your transaction failed - password for account id 111 is incorrect
+Error 12: Your transaction failed - password for account id 111 is incorrect
+Error 19: Your transaction failed - password for account id 111 is incorrect
+Error 18: Your transaction failed - password for account id 111 is incorrect
+Error 15: Your transaction failed - password for account id 111 is incorrect
+Error 17: Your transaction failed - password for account id 111 is incorrect
+Error 23: Your transaction failed - password for account id 111 is incorrect
+Error 21: Your transaction failed - password for account id 111 is incorrect
+Error 26: Your transaction failed - password for account id 111 is incorrect
+Error 27: Your transaction failed - password for account id 111 is incorrect
+Error 25: Your transaction failed - password for account id 111 is incorrect
+Bank: commissions of 4 % were charged, the bank gained 1 $ from account 111
+Bank: commissions of 4 % were charged, the bank gained 18 $ from account 222
+Error 2: Your transaction failed - password for account id 222 is incorrect
+Error 3: Your transaction failed - password for account id 222 is incorrect
 Error 1: Your transaction failed - password for account id 222 is incorrect
+Error 5: Your transaction failed - password for account id 222 is incorrect
+Error 6: Your transaction failed - password for account id 222 is incorrect
+Error 8: Your transaction failed - password for account id 222 is incorrect
+Error 9: Your transaction failed - password for account id 222 is incorrect
+Error 16: Your transaction failed - password for account id 222 is incorrect
+Error 20: Your transaction failed - password for account id 222 is incorrect
+Error 19: Your transaction failed - password for account id 222 is incorrect
+Error 11: Your transaction failed - password for account id 222 is incorrect
+Error 23: Your transaction failed - password for account id 222 is incorrect
+Error 10: Your transaction failed - password for account id 222 is incorrect
+Error 18: Your transaction failed - password for account id 222 is incorrect
+Error 7: Your transaction failed - password for account id 222 is incorrect
+Error 4: Your transaction failed - password for account id 222 is incorrect
+Error 21: Your transaction failed - password for account id 222 is incorrect
+Error 15: Your transaction failed - password for account id 222 is incorrect
+Error 17: Your transaction failed - password for account id 222 is incorrect
+Error 22: Your transaction failed - password for account id 222 is incorrect
+Error 12: Your transaction failed - password for account id 222 is incorrect
+Error 13: Your transaction failed - password for account id 222 is incorrect
+Error 24: Your transaction failed - password for account id 222 is incorrect
+Error 14: Your transaction failed - password for account id 222 is incorrect
+Error 27: Your transaction failed - password for account id 222 is incorrect
+Error 26: Your transaction failed - password for account id 222 is incorrect
+Error 25: Your transaction failed - password for account id 222 is incorrect
+Bank: commissions of 2 % were charged, the bank gained 0 $ from account 111
+Bank: commissions of 2 % were charged, the bank gained 8 $ from account 222
+Error 3: Your transaction failed - account id 333 does not exists
+Error 2: Your transaction failed - account id 333 does not exists
 Error 1: Your transaction failed - account id 333 does not exists
-1: Account 222 balance is 80
+Error 5: Your transaction failed - account id 333 does not exists
+Error 8: Your transaction failed - account id 333 does not exists
+Error 6: Your transaction failed - account id 333 does not exists
+Error 9: Your transaction failed - account id 333 does not exists
+Error 16: Your transaction failed - account id 333 does not exists
+Error 23: Your transaction failed - account id 333 does not exists
+Error 18: Your transaction failed - account id 333 does not exists
+Error 11: Your transaction failed - account id 333 does not exists
+Error 20: Your transaction failed - account id 333 does not exists
+Error 19: Your transaction failed - account id 333 does not exists
+Error 10: Your transaction failed - account id 333 does not exists
+Error 7: Your transaction failed - account id 333 does not exists
+Error 4: Your transaction failed - account id 333 does not exists
+Error 24: Your transaction failed - account id 333 does not exists
+Error 21: Your transaction failed - account id 333 does not exists
+Error 15: Your transaction failed - account id 333 does not exists
+Error 14: Your transaction failed - account id 333 does not exists
+Error 22: Your transaction failed - account id 333 does not exists
+Error 12: Your transaction failed - account id 333 does not exists
+Error 13: Your transaction failed - account id 333 does not exists
+Error 17: Your transaction failed - account id 333 does not exists
+Error 26: Your transaction failed - account id 333 does not exists
+Error 27: Your transaction failed - account id 333 does not exists
+Error 25: Your transaction failed - account id 333 does not exists
+Bank: commissions of 5 % were charged, the bank gained 1 $ from account 111
+Bank: commissions of 5 % were charged, the bank gained 21 $ from account 222
+3: Account 222 balance is 394
+2: Account 222 balance is 394
+1: Account 222 balance is 394
+5: Account 222 balance is 394
+6: Account 222 balance is 394
+8: Account 222 balance is 394
+9: Account 222 balance is 394
+16: Account 222 balance is 394
+11: Account 222 balance is 394
+18: Account 222 balance is 394
+12: Account 222 balance is 394
+17: Account 222 balance is 394
+23: Account 222 balance is 394
+20: Account 222 balance is 394
+19: Account 222 balance is 394
+10: Account 222 balance is 394
+4: Account 222 balance is 394
+24: Account 222 balance is 394
+7: Account 222 balance is 394
+21: Account 222 balance is 394
+15: Account 222 balance is 394
+14: Account 222 balance is 394
+22: Account 222 balance is 394
+13: Account 222 balance is 394
+26: Account 222 balance is 394
+27: Account 222 balance is 394
+25: Account 222 balance is 394
+Bank: commissions of 5 % were charged, the bank gained 1 $ from account 111
+Bank: commissions of 5 % were charged, the bank gained 20 $ from account 222
