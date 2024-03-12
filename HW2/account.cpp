@@ -25,17 +25,15 @@ void Account::unlock_reader(){
 }
 
 Account::Account(int _initial_balance, int _password) : balance(_initial_balance), password(_password) {
-        readers_counter = 0;
-        pthread_mutex_init(&read_lock, NULL);
-        pthread_mutex_init(&write_lock, NULL);
-        pthread_mutex_lock(&write_lock);
+    readers_counter = 0;
+    pthread_mutex_init(&read_lock, NULL);
+    pthread_mutex_init(&write_lock, NULL);
     }
 
 Account::Account() : balance(0), password(0) {
-        readers_counter = 0;
-        pthread_mutex_init(&read_lock, NULL);
-        pthread_mutex_init(&write_lock, NULL);
-        pthread_mutex_lock(&write_lock);
+    readers_counter = 0;
+    pthread_mutex_init(&read_lock, NULL);
+    pthread_mutex_init(&write_lock, NULL);
     }
 
 Account::~Account() {
@@ -44,10 +42,6 @@ Account::~Account() {
     }
 
 Account::Account(const Account& other) : balance(other.balance), password(other.password), readers_counter(other.readers_counter) {
-    // Initialize mutexes for the new object
     pthread_mutex_init(&read_lock, NULL);
     pthread_mutex_init(&write_lock, NULL);
-
-    // Lock the write mutex for the new object
-    pthread_mutex_lock(&write_lock);
 }

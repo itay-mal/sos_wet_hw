@@ -11,16 +11,21 @@
 #include <cmath>
 #include <unistd.h>
 #include <pthread.h>
+#include <chrono>
+#include <time.h>
 
 class Bank {
     public:
-        // TODO: consider koriim-kotvim list wise
-        // account_list_lock read
-        // account_list_lock write
+        pthread_mutex_t list_lock;  // simple lock - no readers writers policy
+        pthread_mutex_t bank_balance_lock;  // simple lock - no readers writers policy
         std::map<int, Account> account_map;
         int balance; // the bank balance
         Bank();
+        pthread_t bank_thread;
+        bool bank_want_access;
         void run(bool *atms_done);
+        void lock_account_map();
+        void unlock_account_map();
         void get_commision();
         void print_all_balances();
         void open_account(int id, int password, int initial_amount, int atm_id);

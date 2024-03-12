@@ -56,7 +56,6 @@ int main(int argc, char *argv[]) {
 	}
 	atm_threads_joined = true;
 	pthread_join(bank_thread, nullptr);
-	//wait();
 	for(auto atm_p:atms){ delete atm_p; }
 
 	auto end = std::chrono::steady_clock::now();
