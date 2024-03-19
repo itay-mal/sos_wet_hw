@@ -1,47 +1,107 @@
 #include "account.hpp"
 
 void Account::lock_writer() {
-    pthread_mutex_lock(&write_lock);
+    if(pthread_mutex_lock(&write_lock)){
+        perror("Bank error: pthread_mutex_lock failed");
+        exit(0);
+    }
 }
 
 void Account::unlock_writer() {
-    pthread_mutex_unlock(&write_lock);
+    if(pthread_mutex_unlock(&write_lock)){
+        perror("Bank error: pthread_mutex_unlock failed");
+        exit(0);
+    }
 }
 
 void Account::lock_reader(){
-    pthread_mutex_lock(&read_lock);
+    std::cout << "account " << password << " locking " << &read_lock << std::endl;
+    if(pthread_mutex_lock(&read_lock)){
+        perror("Bank error: pthread_mutex_lock failed");
+        exit(0);
+    }
     readers_counter++;
     if (readers_counter==1) {
-        pthread_mutex_lock(&write_lock); }
-    pthread_mutex_unlock(&read_lock);
+        if(pthread_mutex_lock(&write_lock)){
+            perror("Bank error: pthread_mutex_lock failed");
+            exit(0);
+        }
+    }
+    if(pthread_mutex_unlock(&read_lock)){
+        perror("Bank error: pthread_mutex_unlock failed");
+        exit(0);
+    }
 }
 
 void Account::unlock_reader(){
-    pthread_mutex_lock(&read_lock);
+    std::cout << "account " << password << " unlocking " << &read_lock << std::endl;
+    if(pthread_mutex_lock(&read_lock)){
+        perror("Bank error: pthread_mutex_lock failed");
+        exit(0);
+    }
     readers_counter--;
     if (readers_counter==0) {
-        pthread_mutex_unlock(&write_lock); }
-    pthread_mutex_unlock(&read_lock);
+        if(pthread_mutex_unlock(&write_lock)){
+            perror("Bank error: pthread_mutex_unlock failed");
+            exit(0);
+        }
+    }
+    if(pthread_mutex_unlock(&read_lock)){
+        perror("Bank error: pthread_mutex_unlock failed");
+        exit(0);
+    }
 }
 
 Account::Account(int _initial_balance, int _password) : balance(_initial_balance), password(_password) {
     readers_counter = 0;
-    pthread_mutex_init(&read_lock, NULL);
-    pthread_mutex_init(&write_lock, NULL);
+    if(pthread_mutex_init(&read_lock, NULL)){
+        perror("Bank error: pthread_mutex_init failed");
+        exit(0);
     }
+    if(pthread_mutex_init(&write_lock, NULL)){
+        perror("Bank error: pthread_mutex_init failed");
+        exit(0);
+    }
+}
 
 Account::Account() : balance(0), password(0) {
     readers_counter = 0;
-    pthread_mutex_init(&read_lock, NULL);
-    pthread_mutex_init(&write_lock, NULL);
+    if(pthread_mutex_init(&read_lock, NULL)){
+        perror("Bank error: pthread_mutex_init failed");
+        exit(0);
     }
+    if(pthread_mutex_init(&write_lock, NULL)){
+        perror("Bank error: pthread_mutex_init failed");
+        exit(0);
+    }
+}
 
 Account::~Account() {
-        pthread_mutex_destroy(&read_lock);
-        pthread_mutex_destroy(&write_lock);
+    if(pthread_mutex_lock(&read_lock)){
+        perror("Bank error: pthread_mutex_lock failed");
+        exit(0);
     }
+    if(pthread_mutex_unlock(&read_lock)){
+        perror("Bank error: pthread_mutex_unlock failed");
+        exit(0);
+    }
+    if(pthread_mutex_destroy(&read_lock)){
+        perror("Bank error: pthread_mutex_destroy failed");
+        exit(0);
+    }
+    if(pthread_mutex_destroy(&write_lock)){
+        perror("Bank error: pthread_mutex_destroy failed");
+        exit(0);
+    }
+}
 
 Account::Account(const Account& other) : balance(other.balance), password(other.password), readers_counter(other.readers_counter) {
-    pthread_mutex_init(&read_lock, NULL);
-    pthread_mutex_init(&write_lock, NULL);
+    if(pthread_mutex_init(&read_lock, NULL)){
+        perror("Bank error: pthread_mutex_init failed");
+        exit(0);
+    }
+    if(pthread_mutex_init(&write_lock, NULL)){
+        perror("Bank error: pthread_mutex_init failed");
+        exit(0);
+    }
 }

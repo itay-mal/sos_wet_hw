@@ -1,60 +1,44 @@
-1: New account id is 111 with password 1234 and initial balance 50
-1: New account id is 222 with password 568 and initial balance 20
-1: Account 111 new balance is 150 after 100 $ was deposited
-2: New account id is 112 with password 1234 and initial balance 50
-1: Account 222 new balance is 10 after 10 $ was withdrew
-2: New account id is 223 with password 568 and initial balance 20
-Bank: commissions of 5 % were charged, the bank gained 8 $ from account 111
-Bank: commissions of 5 % were charged, the bank gained 3 $ from account 112
-Bank: commissions of 5 % were charged, the bank gained 1 $ from account 222
-Bank: commissions of 5 % were charged, the bank gained 1 $ from account 223
-Error 1: Your transaction failed - password for account id 222 is incorrect
-2: Account 112 new balance is 147 after 100 $ was deposited
-Error 1: Your transaction failed - account id 111 balance is lower than 2000
-2: Account 223 new balance is 9 after 10 $ was withdrew
-1: Account 111 balance is 142
-Error 2: Your transaction failed - password for account id 223 is incorrect
-Bank: commissions of 3 % were charged, the bank gained 4 $ from account 111
-Bank: commissions of 3 % were charged, the bank gained 4 $ from account 112
-Bank: commissions of 3 % were charged, the bank gained 0 $ from account 222
-Bank: commissions of 3 % were charged, the bank gained 0 $ from account 223
-Error 2: Your transaction failed - account id 112 balance is lower than 2000
-1: Account 111 balance is 138
-2: Account 111 balance is 138
-1: Account 111 balance is 138
-2: Account 111 balance is 138
-1: Account 111 balance is 138
-Bank: commissions of 4 % were charged, the bank gained 6 $ from account 111
-Bank: commissions of 4 % were charged, the bank gained 6 $ from account 112
-Bank: commissions of 4 % were charged, the bank gained 0 $ from account 222
-Bank: commissions of 4 % were charged, the bank gained 0 $ from account 223
-2: Account 111 balance is 132
-1: Account 111 balance is 132
-2: Account 111 balance is 132
-1: Transfer 70 from account 111 to account 222 new account balance is 62 new target account balance is 79
-2: Account 111 balance is 62
-Bank: commissions of 4 % were charged, the bank gained 2 $ from account 111
-Bank: commissions of 4 % were charged, the bank gained 5 $ from account 112
-Bank: commissions of 4 % were charged, the bank gained 3 $ from account 222
-Bank: commissions of 4 % were charged, the bank gained 0 $ from account 223
-Error 1: Your transaction failed - account id 111 balance is lower than 70
-2: Transfer 70 from account 112 to account 222 new account balance is 62 new target account balance is 146
-Error 1: Your transaction failed - account id 111 balance is lower than 70205
-Error 2: Your transaction failed - account id 112 balance is lower than 70
-Error 1: Your transaction failed - password for account id 111 is incorrect
-Error 2: Your transaction failed - account id 112 balance is lower than 70205
-Error 1: Your transaction failed - password for account id 222 is incorrect
-Bank: commissions of 3 % were charged, the bank gained 2 $ from account 111
-Bank: commissions of 3 % were charged, the bank gained 2 $ from account 112
-Bank: commissions of 3 % were charged, the bank gained 4 $ from account 222
-Bank: commissions of 3 % were charged, the bank gained 0 $ from account 223
-Error 1: Your transaction failed - account id 333 does not exists
-Error 2: Your transaction failed - password for account id 112 is incorrect
-Error 2: Your transaction failed - password for account id 223 is incorrect
-1: Account 222 balance is 142
-Error 2: Your transaction failed - account id 334 does not exists
-Bank: commissions of 1 % were charged, the bank gained 1 $ from account 111
-Bank: commissions of 1 % were charged, the bank gained 1 $ from account 112
-Bank: commissions of 1 % were charged, the bank gained 1 $ from account 222
-Bank: commissions of 1 % were charged, the bank gained 0 $ from account 223
-2: Account 223 balance is 9
+1: New account id is 111 with password 1234 and initial balance 500
+Error 2: Your transaction failed - account id 222 does not exists
+1: New account id is 222 with password 4567 and initial balance 500
+2: Account 222 new balance is 490 after 10 $ was withdrew
+1: Account 222 is now closed. Balance was 490
+Error 2: Your transaction failed - account id 222 does not exists
+1: New account id is 222 with password 4567 and initial balance 500
+2: Account 222 new balance is 600 after 100 $ was deposited
+1: Account 222 is now closed. Balance was 600
+Error 2: Your transaction failed - account id 222 does not exists
+1: New account id is 222 with password 4567 and initial balance 500
+Bank: commissions of 1 % were charged, the bank gained 5 $ from account 111
+Bank: commissions of 1 % were charged, the bank gained 5 $ from account 222
+2: Account 222 balance is 495
+1: Account 222 is now closed. Balance was 495
+Error 2: Your transaction failed - account id 222 does not exists
+1: New account id is 222 with password 4567 and initial balance 500
+2: Account 222 new balance is 490 after 10 $ was withdrew
+1: Account 222 is now closed. Balance was 490
+Error 2: Your transaction failed - account id 222 does not exists
+1: New account id is 222 with password 4567 and initial balance 500
+2: Account 222 new balance is 600 after 100 $ was deposited
+1: Account 222 is now closed. Balance was 600
+Error 2: Your transaction failed - account id 222 does not exists
+1: New account id is 222 with password 4567 and initial balance 500
+Bank: commissions of 5 % were charged, the bank gained 25 $ from account 111
+Bank: commissions of 5 % were charged, the bank gained 25 $ from account 222
+2: Account 222 balance is 475
+1: Account 222 is now closed. Balance was 475
+Error 2: Your transaction failed - account id 222 does not exists
+1: New account id is 222 with password 4567 and initial balance 500
+2: Account 222 new balance is 490 after 10 $ was withdrew
+1: Account 222 is now closed. Balance was 490
+Error 2: Your transaction failed - account id 222 does not exists
+1: New account id is 222 with password 4567 and initial balance 500
+2: Account 222 new balance is 600 after 100 $ was deposited
+1: Account 222 is now closed. Balance was 600
+Error 2: Your transaction failed - account id 222 does not exists
+1: New account id is 222 with password 4567 and initial balance 500
+Bank: commissions of 5 % were charged, the bank gained 24 $ from account 111
+Bank: commissions of 5 % were charged, the bank gained 25 $ from account 222
+2: Account 222 balance is 475
+1: Account 222 is now closed. Balance was 475
+1: New account id is 222 with password 4567 and initial balance 500

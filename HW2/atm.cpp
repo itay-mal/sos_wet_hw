@@ -4,28 +4,23 @@
 
 Atm::Atm(std::string input_file, int i) {
     identifier = i;
-    actions_file.open(input_file);
-    if (!actions_file.is_open()) {
-        std::cerr << "Error opening the file." << std::endl;
-        // You might want to handle this error case more gracefully in a real application
-    }
+    actions_file.open(input_file);    
 }
 
-// Atm::Atm(const Atm& other) : identifier(other.identifier) {
-//     this->actions_file = other.actions_file;
-// }
 
 Atm::~Atm() {
-    if (actions_file.is_open()) {
+    if(actions_file.is_open()){
         actions_file.close();
     }
-    std::cout << "atm " << this->identifier << " is dead" << std::endl;
 }
 
 void Atm::run() {
     std::string line;
     while(std::getline(actions_file, line)) {
-        sleep(0.1);
+        if (usleep(100*1000)){
+            perror("Bank error: usleep failed");
+            exit(0);
+        }
         std::vector<std::string> param;
         std::string s;
         std::stringstream ss(line);
@@ -34,7 +29,6 @@ void Atm::run() {
         }
         switch (param[0][0])
         {
-            // change all methods to bank methods
         case 'O':   
             bank.open_account(stoi(param[1]), stoi(param[2]), stoi(param[3]), this->identifier);
             break; 

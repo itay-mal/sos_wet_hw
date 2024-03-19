@@ -11,7 +11,6 @@
 #include <cmath>
 #include <unistd.h>
 #include <pthread.h>
-#include <chrono>
 #include <time.h>
 
 class Bank {
@@ -21,8 +20,6 @@ class Bank {
         std::map<int, Account> account_map;
         int balance; // the bank balance
         Bank();
-        pthread_t bank_thread;
-        bool bank_want_access;
         void run(bool *atms_done);
         void lock_account_map();
         void unlock_account_map();

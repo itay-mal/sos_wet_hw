@@ -21,7 +21,6 @@ public:
     pthread_t thread;
     int identifier;
     Atm(std::string input_file, int i);
-    // Atm(const Atm& other);
     ~Atm();
     void run();
 };
