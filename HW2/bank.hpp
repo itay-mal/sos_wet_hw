@@ -2,6 +2,7 @@
 #define _BANK_HPP
 
 #include <map>
+#include <list>
 #include <iostream>
 #include <sstream>
 #include "account.hpp"
@@ -12,6 +13,8 @@
 #include <unistd.h>
 #include <pthread.h>
 #include <time.h>
+
+extern Logfile logfile;
 
 class Bank {
     public:

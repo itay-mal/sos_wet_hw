@@ -13,8 +13,10 @@ main file. This file contains the main function of smash
 #include "bank.hpp"
 #include "atm.hpp"
 #include "account.hpp"
+#include "log.hpp"
 
 Bank bank;
+Logfile logfile;
 //**************************************************************************************
 // function name: main
 // Description: main function of bank. 

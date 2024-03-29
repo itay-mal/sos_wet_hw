@@ -7,8 +7,12 @@
 #include <sstream>
 #include <type_traits>
 
-void print_to_log(const std::stringstream &message);
-
-void close_log();
-
+class Logfile {
+    public:
+        pthread_mutex_t log_lock;
+        std::ofstream logfile;
+        Logfile();
+        ~Logfile();
+        void print_to_log(const std::stringstream &message);
+};
 #endif

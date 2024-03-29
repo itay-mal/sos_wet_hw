@@ -15,7 +15,6 @@ void Account::unlock_writer() {
 }
 
 void Account::lock_reader(){
-    std::cout << "account " << password << " locking " << &read_lock << std::endl;
     if(pthread_mutex_lock(&read_lock)){
         perror("Bank error: pthread_mutex_lock failed");
         exit(0);
@@ -34,7 +33,6 @@ void Account::lock_reader(){
 }
 
 void Account::unlock_reader(){
-    std::cout << "account " << password << " unlocking " << &read_lock << std::endl;
     if(pthread_mutex_lock(&read_lock)){
         perror("Bank error: pthread_mutex_lock failed");
         exit(0);

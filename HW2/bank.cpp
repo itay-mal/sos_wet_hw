@@ -17,30 +17,41 @@ void Bank::get_commision() {
     std::mt19937 gen(rd());
     std::uniform_int_distribution<int> dis(1, 5); // Define the distribution
     int random_int = dis(gen); // Generate a random integer between 1 and 5 (inclusive)
+    std::list<int> accout_ids;
+
+    // Get ids of currently existing accounts
     lock_account_map();
+    for (const auto& pair : account_map) {
+        accout_ids.push_back(pair.first);
+    }
+    unlock_account_map();
     if(pthread_mutex_lock(&bank_balance_lock)){
         perror("Bank error: pthread_mutex_lock failed");
         exit(0);
     }
-    for (auto& pair : account_map) {
-        pair.second.lock_writer();
-        int commision = std::round((pair.second.balance * random_int)/100.0);
-        pair.second.balance -= commision;
-        this->balance += commision;
-        std::stringstream msg;
-        msg << "Bank: commissions of " << random_int << " % were charged, the bank gained " << commision << " $ from account " << pair.first;
-        print_to_log(msg);
-        pair.second.unlock_writer();
-    }
-    if(usleep(1000*1000)){
-        perror("Bank error: usleep failed");
-        exit(0);
+    for (const auto& key : accout_ids) {
+        lock_account_map();
+        auto it = this->account_map.find(key);
+        if(it == account_map.end()){ // does not exist
+            unlock_account_map();
+            continue;
+        } else {
+            Account& acc = it->second;
+            acc.lock_writer();
+            unlock_account_map();
+            int commision = std::round((acc.balance * random_int)/100.0);
+            acc.balance -= commision;
+            this->balance += commision;
+            std::stringstream msg;
+            msg << "Bank: commissions of " << random_int << " % were charged, the bank gained " << commision << " $ from account " << key;
+            logfile.print_to_log(msg);
+            acc.unlock_writer();
+        }
     }
     if(pthread_mutex_unlock(&bank_balance_lock)){
         perror("Bank error: pthread_mutex_lock failed");
         exit(0);
     }
-    unlock_account_map();
 }
 
 void Bank::open_account(int id, int password, int initial_amount, int atm_id){
@@ -49,7 +60,7 @@ void Bank::open_account(int id, int password, int initial_amount, int atm_id){
     auto it = this->account_map.find(id);
     if(it != account_map.end()){ // account already exists
         msg << "Error " << atm_id << ": Your transaction failed - account with the same id exists";
-        print_to_log(msg);
+        logfile.print_to_log(msg);
         if(usleep(1000*1000)){
             perror("Bank error: usleep failed");
             exit(0);
@@ -59,7 +70,7 @@ void Bank::open_account(int id, int password, int initial_amount, int atm_id){
         Account new_acc(initial_amount, password);
         account_map[id] = new_acc;
         msg << atm_id << ": New account id is " << id << " with password " << password << " and initial balance " << initial_amount;
-        print_to_log(msg);
+        logfile.print_to_log(msg);
         if(usleep(1000*1000)){
             perror("Bank error: usleep failed");
             exit(0);
@@ -74,7 +85,7 @@ void Bank::remove_account(int id, int password, int atm_id) {
     auto it = this->account_map.find(id);
     if(it == account_map.end()){ // does not exist
         msg << "Error " << atm_id << ": Your transaction failed - account id " << id << " does not exists";
-        print_to_log(msg);
+        logfile.print_to_log(msg);
     } else {
         Account& acc = it->second;
         acc.lock_writer();
@@ -82,10 +93,10 @@ void Bank::remove_account(int id, int password, int atm_id) {
             msg << atm_id << ": Account " << id << " is now closed. Balance was " << acc.balance;
             acc.unlock_writer();
             account_map.erase(it); // account no longer exist - no lock to release
-            print_to_log(msg);
+            logfile.print_to_log(msg);
         } else { // Wrong password
             msg << "Error " << atm_id << ": Your transaction failed - password for account id " << id << " is incorrect";
-            print_to_log(msg);
+            logfile.print_to_log(msg);
             acc.unlock_writer();
         }
     }
@@ -102,7 +113,7 @@ void Bank::deposit_withdraw(int id, int password, int amount, int atm_id){
     auto it = this->account_map.find(id);
     if(it == account_map.end()){ // does not exist
         msg << "Error " << atm_id << ": Your transaction failed - account id " << id << " does not exists";
-        print_to_log(msg);
+        logfile.print_to_log(msg);
         if(usleep(1000*1000)){
             perror("Bank error: usleep failed");
             exit(0);
@@ -116,7 +127,7 @@ void Bank::deposit_withdraw(int id, int password, int amount, int atm_id){
         if (acc.password == password) { // Password matches, deposit cash
             if(acc.balance + amount < 0){
                 msg << "Error " << atm_id << ": Your transaction failed - account id " << id << " balance is lower than " << abs(amount);
-                print_to_log(msg);
+                logfile.print_to_log(msg);
                 if(usleep(1000*1000)){
                     perror("Bank error: usleep failed");
                     exit(0);
@@ -125,7 +136,7 @@ void Bank::deposit_withdraw(int id, int password, int amount, int atm_id){
             } else {
                 acc.balance += amount;
                 msg << atm_id << ": Account " << id << " new balance is " << acc.balance << " after " << abs(amount) << " $ was " << ((amount<0)? "withdrew":  "deposited");
-                print_to_log(msg);
+                logfile.print_to_log(msg);
                 if(usleep(1000*1000)){
                     perror("Bank error: usleep failed");
                     exit(0);
@@ -134,7 +145,7 @@ void Bank::deposit_withdraw(int id, int password, int amount, int atm_id){
             }
         } else { // Wrong password
             msg << "Error " << atm_id << ": Your transaction failed - password for account id " << id << " is incorrect";
-            print_to_log(msg);
+            logfile.print_to_log(msg);
             if(usleep(1000*1000)){
                 perror("Bank error: usleep failed");
                 exit(0);
@@ -150,7 +161,7 @@ void Bank::check_balance(int id, int password, int atm_id){
     auto it = this->account_map.find(id);
     if(it == account_map.end()){ // does not exist
         msg << "Error " << atm_id << ": Your transaction failed - account id " << id << " does not exists";
-        print_to_log(msg);
+        logfile.print_to_log(msg);
         if(usleep(1000*1000)){
             perror("Bank error: usleep failed");
             exit(0);
@@ -162,7 +173,7 @@ void Bank::check_balance(int id, int password, int atm_id){
         unlock_account_map();
         if (acc.password == password) { // Password matches
             msg << atm_id << ": Account " << id << " balance is "  << acc.balance;
-            print_to_log(msg);
+            logfile.print_to_log(msg);
             if(usleep(1000*1000)){
                 perror("Bank error: usleep failed");
                 exit(0);
@@ -170,7 +181,7 @@ void Bank::check_balance(int id, int password, int atm_id){
             acc.unlock_reader();
         } else { // Wrong password
             msg << "Error " << atm_id << ": Your transaction failed - password for account id " << id << " is incorrect";
-            print_to_log(msg);
+            logfile.print_to_log(msg);
             if(usleep(1000*1000)){
                 perror("Bank error: usleep failed");
                 exit(0);
@@ -187,7 +198,7 @@ void Bank::transfer_between_accounts(int source_account, int password, int targe
     auto it_target = this->account_map.find(target_account);
     if(it_source == account_map.end()){ // source does not exist
         msg << "Error " << atm_id << ": Your transaction failed - account id " << source_account << " does not exists";
-        print_to_log(msg);
+        logfile.print_to_log(msg);
         if(usleep(1000*1000)){
             perror("Bank error: usleep failed");
             exit(0);
@@ -205,7 +216,7 @@ void Bank::transfer_between_accounts(int source_account, int password, int targe
         unlock_account_map();
         if(src_acc->password != password){ // source password does not match
             msg << "Error " << atm_id << ": Your transaction failed - password for account id " << source_account << " is incorrect";
-            print_to_log(msg);
+            logfile.print_to_log(msg);
             if(usleep(1000*1000)){
                 perror("Bank error: usleep failed");
                 exit(0);
@@ -218,7 +229,7 @@ void Bank::transfer_between_accounts(int source_account, int password, int targe
         }
         if(src_acc->balance < amount){ // source money insufficient
             msg << "Error " << atm_id << ": Your transaction failed - account id " << source_account << " balance is lower than " << amount;
-            print_to_log(msg);
+            logfile.print_to_log(msg);
             if(usleep(1000*1000)){
                 perror("Bank error: usleep failed");
                 exit(0);
@@ -231,7 +242,7 @@ void Bank::transfer_between_accounts(int source_account, int password, int targe
         }
         if(tgt_acc == nullptr){ // target account not found
             msg << "Error " << atm_id << ": Your transaction failed - account id " << target_account << " does not exists";
-            print_to_log(msg);
+            logfile.print_to_log(msg);
             if(usleep(1000*1000)){
                 perror("Bank error: usleep failed");
                 exit(0);
@@ -242,7 +253,7 @@ void Bank::transfer_between_accounts(int source_account, int password, int targe
         src_acc->balance -= amount;
         tgt_acc->balance += amount;
         msg << atm_id << ": Transfer " << amount << " from account " << source_account << " to account " << target_account << " new account balance is " << src_acc->balance << " new target account balance is " << tgt_acc->balance;
-        print_to_log(msg);
+        logfile.print_to_log(msg);
         if(usleep(1000*1000)){
             perror("Bank error: usleep failed");
             exit(0);
